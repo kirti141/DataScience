@@ -1,0 +1,852 @@
+mysql> create database college;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| college            |
+| information_schema |
+| mydb               |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+6 rows in set (0.00 sec)
+
+mysql> use college;
+Database changed
+mysql> show tables;
+Empty set (0.00 sec)
+
+mysql> create table student;
+ERROR 4028 (HY000): A table must have at least one visible column.
+mysql> create table student(roll int primary key, name varchar(10) not null, marks float default 40.00);
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> select * from student;
+Empty set (0.00 sec)
+
+mysql> delete student;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> delete table student;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'table student' at line 1
+mysql> delete from student;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select * from student;
+Empty set (0.01 sec)
+
+mysql> show tables;
++-------------------+
+| Tables_in_college |
++-------------------+
+| student           |
++-------------------+
+1 row in set (0.00 sec)
+
+mysql> drop from student;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'from student' at line 1
+mysql> drop table student;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select * from student;
+ERROR 1146 (42S02): Table 'college.student' doesn't exist
+mysql> show tables;
+Empty set (0.00 sec)
+
+mysql> create table student(roll int primary key, name varchar(10) not null, class varchar(10), marks float default 40.00,age int);
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> insert into student (roll,name,class,marks,age) values (1,'ram','TY',77.45,5);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into student (roll,name,class,marks,age) values (2,'ram','TY',77.45,5);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into student (roll,name,class,marks,age) values (2,'ram','TY',77.45,5);
+ERROR 1062 (23000): Duplicate entry '2' for key 'student.PRIMARY'
+mysql> insert into student (roll,name,class,marks,age) values (3,'ramu','TY',77.45,5);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into student (roll,name,class,marks,age) values (4,'ramuesh','TY',77.45,5);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into student (roll,name,class,marks,age) values (5,'ramueshkotari','TY',77.45,5);
+ERROR 1406 (22001): Data too long for column 'name' at row 1
+mysql> insert into student (roll,name,class,marks,age) values (5,'kotari','TY',77.45,5);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from student;
++------+---------+-------+-------+------+
+| roll | name    | class | marks | age  |
++------+---------+-------+-------+------+
+|    1 | ram     | TY    | 77.45 |    5 |
+|    2 | ram     | TY    | 77.45 |    5 |
+|    3 | ramu    | TY    | 77.45 |    5 |
+|    4 | ramuesh | TY    | 77.45 |    5 |
+|    5 | kotari  | TY    | 77.45 |    5 |
++------+---------+-------+-------+------+
+5 rows in set (0.00 sec)
+
+mysql> delete from student where roll=4;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> update student set marks=600.45,where roll=3;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'where roll=3' at line 1
+mysql> update student set marks=60.45 where roll=3;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from student;
++------+--------+-------+-------+------+
+| roll | name   | class | marks | age  |
++------+--------+-------+-------+------+
+|    1 | ram    | TY    | 77.45 |    5 |
+|    2 | ram    | TY    | 77.45 |    5 |
+|    3 | ramu   | TY    | 60.45 |    5 |
+|    5 | kotari | TY    | 77.45 |    5 |
++------+--------+-------+-------+------+
+4 rows in set (0.00 sec)
+
+mysql> update student set marks=marks+0.5;
+Query OK, 4 rows affected (0.01 sec)
+Rows matched: 4  Changed: 4  Warnings: 0
+
+mysql> select * from student;
++------+--------+-------+-------+------+
+| roll | name   | class | marks | age  |
++------+--------+-------+-------+------+
+|    1 | ram    | TY    | 77.95 |    5 |
+|    2 | ram    | TY    | 77.95 |    5 |
+|    3 | ramu   | TY    | 60.95 |    5 |
+|    5 | kotari | TY    | 77.95 |    5 |
++------+--------+-------+-------+------+
+4 rows in set (0.00 sec)
+
+mysql> truncate student;
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> select * from student;
+Empty set (0.01 sec)
+
+mysql> show tables;
++-------------------+
+| Tables_in_college |
++-------------------+
+| student           |
++-------------------+
+1 row in set (0.00 sec)
+
+mysql> insert into student values (9,'ranjeet','TY',18.45,5),(10,'rajneeti','TY',1.45,5),(11,'raman','CY',80.45,15),(12,'rajneeti','TY',1.45,5),(13,'rajneeti','TY',1.45,5);
+Query OK, 5 rows affected (0.01 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> select * from student;
++------+----------+-------+-------+------+
+| roll | name     | class | marks | age  |
++------+----------+-------+-------+------+
+|    9 | ranjeet  | TY    | 18.45 |    5 |
+|   10 | rajneeti | TY    |  1.45 |    5 |
+|   11 | raman    | CY    | 80.45 |   15 |
+|   12 | rajneeti | TY    |  1.45 |    5 |
+|   13 | rajneeti | TY    |  1.45 |    5 |
++------+----------+-------+-------+------+
+5 rows in set (0.01 sec)
+
+mysql> create table first_class select name, marks from student where marks >60;
+Query OK, 1 row affected (0.01 sec)
+Records: 1  Duplicates: 0  Warnings: 0
+
+mysql> show tables;
++-------------------+
+| Tables_in_college |
++-------------------+
+| first_class       |
+| student           |
++-------------------+
+2 rows in set (0.00 sec)
+
+mysql> show table;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> alter table student add column gender varchar(2) default 'M';
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from student;
++------+----------+-------+-------+------+--------+
+| roll | name     | class | marks | age  | gender |
++------+----------+-------+-------+------+--------+
+|    9 | ranjeet  | TY    | 18.45 |    5 | M      |
+|   10 | rajneeti | TY    |  1.45 |    5 | M      |
+|   11 | raman    | CY    | 80.45 |   15 | M      |
+|   12 | rajneeti | TY    |  1.45 |    5 | M      |
+|   13 | rajneeti | TY    |  1.45 |    5 | M      |
++------+----------+-------+-------+------+--------+
+5 rows in set (0.00 sec)
+
+mysql> alter table student drop column gender;
+Query OK, 0 rows affected (0.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from student;
++------+----------+-------+-------+------+
+| roll | name     | class | marks | age  |
++------+----------+-------+-------+------+
+|    9 | ranjeet  | TY    | 18.45 |    5 |
+|   10 | rajneeti | TY    |  1.45 |    5 |
+|   11 | raman    | CY    | 80.45 |   15 |
+|   12 | rajneeti | TY    |  1.45 |    5 |
+|   13 | rajneeti | TY    |  1.45 |    5 |
++------+----------+-------+-------+------+
+5 rows in set (0.00 sec)
+
+mysql> select sum(marks) as addition from student;
++--------------------+
+| addition           |
++--------------------+
+| 103.24999785423279 |
++--------------------+
+1 row in set (0.00 sec)
+
+mysql> select avg(marks) as average from student;
++--------------------+
+| average            |
++--------------------+
+| 20.649999570846557 |
++--------------------+
+1 row in set (0.01 sec)
+
+mysql> select count(marks) as count from student;
++-------+
+| count |
++-------+
+|     5 |
++-------+
+1 row in set (0.00 sec)
+
+mysql> select max(marks) as max from student;
++-------+
+| max   |
++-------+
+| 80.45 |
++-------+
+1 row in set (0.00 sec)
+
+mysql> select min(marks) as min from student;
++------+
+| min  |
++------+
+| 1.45 |
++------+
+1 row in set (0.00 sec)
+
+mysql> select class from student group by class;
++-------+
+| class |
++-------+
+| TY    |
+| CY    |
++-------+
+2 rows in set (0.01 sec)
+
+mysql> select * from student;
++------+----------+-------+-------+------+
+| roll | name     | class | marks | age  |
++------+----------+-------+-------+------+
+|    9 | ranjeet  | TY    | 18.45 |    5 |
+|   10 | rajneeti | TY    |  1.45 |    5 |
+|   11 | raman    | CY    | 80.45 |   15 |
+|   12 | rajneeti | TY    |  1.45 |    5 |
+|   13 | rajneeti | TY    |  1.45 |    5 |
++------+----------+-------+-------+------+
+5 rows in set (0.00 sec)
+
+mysql> select * from student where marks >60;
++------+-------+-------+-------+------+
+| roll | name  | class | marks | age  |
++------+-------+-------+-------+------+
+|   11 | raman | CY    | 80.45 |   15 |
++------+-------+-------+-------+------+
+1 row in set (0.01 sec)
+
+mysql> select * from student where having >60;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'having >60' at line 1
+mysql> select * from student where HAVING >60;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'HAVING >60' at line 1
+mysql> select * from student where HAVING marks >60;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'HAVING marks >60' at line 1
+mysql> select * from student HAVING marks >60;
++------+-------+-------+-------+------+
+| roll | name  | class | marks | age  |
++------+-------+-------+-------+------+
+|   11 | raman | CY    | 80.45 |   15 |
++------+-------+-------+-------+------+
+1 row in set (0.00 sec)
+
+mysql> select * from student where name like '_a__';
+Empty set (0.00 sec)
+
+mysql> select * from student where name like '_a___';
++------+-------+-------+-------+------+
+| roll | name  | class | marks | age  |
++------+-------+-------+-------+------+
+|   11 | raman | CY    | 80.45 |   15 |
++------+-------+-------+-------+------+
+1 row in set (0.00 sec)
+
+mysql> select distinct class from student;
++-------+
+| class |
++-------+
+| TY    |
+| CY    |
++-------+
+2 rows in set (0.00 sec)
+
+mysql> select * from student order by marks desc limit 5;
++------+----------+-------+-------+------+
+| roll | name     | class | marks | age  |
++------+----------+-------+-------+------+
+|   11 | raman    | CY    | 80.45 |   15 |
+|    9 | ranjeet  | TY    | 18.45 |    5 |
+|   10 | rajneeti | TY    |  1.45 |    5 |
+|   12 | rajneeti | TY    |  1.45 |    5 |
+|   13 | rajneeti | TY    |  1.45 |    5 |
++------+----------+-------+-------+------+
+5 rows in set (0.00 sec)
+
+mysql> select * from student where marks between 60 and 70;
+Empty set (0.00 sec)
+
+mysql> select * from student where marks between 60 and 90;
++------+-------+-------+-------+------+
+| roll | name  | class | marks | age  |
++------+-------+-------+-------+------+
+|   11 | raman | CY    | 80.45 |   15 |
++------+-------+-------+-------+------+
+1 row in set (0.00 sec)
+
+mysql> select * from student where marks like '6%' and class='TY';
+Empty set (0.00 sec)
+
+mysql> select * from student where marks like '18%' and class='TY';
++------+---------+-------+-------+------+
+| roll | name    | class | marks | age  |
++------+---------+-------+-------+------+
+|    9 | ranjeet | TY    | 18.45 |    5 |
++------+---------+-------+-------+------+
+1 row in set (0.00 sec)
+
+mysql> select * from student where roll in (4,6);
+Empty set (0.00 sec)
+
+mysql> select * from student where roll in (11,9);
++------+---------+-------+-------+------+
+| roll | name    | class | marks | age  |
++------+---------+-------+-------+------+
+|    9 | ranjeet | TY    | 18.45 |    5 |
+|   11 | raman   | CY    | 80.45 |   15 |
++------+---------+-------+-------+------+
+2 rows in set (0.00 sec)
+
+mysql> select * from student where roll not in (11,9);
++------+----------+-------+-------+------+
+| roll | name     | class | marks | age  |
++------+----------+-------+-------+------+
+|   10 | rajneeti | TY    |  1.45 |    5 |
+|   12 | rajneeti | TY    |  1.45 |    5 |
+|   13 | rajneeti | TY    |  1.45 |    5 |
++------+----------+-------+-------+------+
+3 rows in set (0.00 sec)
+
+mysql> select * from student where roll notin (11,9);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'notin (11,9)' at line 1
+mysql> select * from student where roll not in (11,9);
++------+----------+-------+-------+------+
+| roll | name     | class | marks | age  |
++------+----------+-------+-------+------+
+|   10 | rajneeti | TY    |  1.45 |    5 |
+|   12 | rajneeti | TY    |  1.45 |    5 |
+|   13 | rajneeti | TY    |  1.45 |    5 |
++------+----------+-------+-------+------+
+3 rows in set (0.00 sec)
+
+mysql> create table employee(employee_id int primary key, first_name varchar(10) not null,last_name varchar(10), salary float,joining_date datetime, department varchar(10));
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> insert into employee values (1,'Bob','Kinto',1000000,'2019-01-20','Finance');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from employee;
++-------------+------------+-----------+---------+---------------------+------------+
+| employee_id | first_name | last_name | salary  | joining_date        | department |
++-------------+------------+-----------+---------+---------------------+------------+
+|           1 | Bob        | Kinto     | 1000000 | 2019-01-20 00:00:00 | Finance    |
++-------------+------------+-----------+---------+---------------------+------------+
+1 row in set (0.00 sec)
+
+mysql> insert into employee values (2,'Jerry','Kansxo',6000000,'2019-01-15','IT'), (3,'Philip','Jose',8900000,'2019-02-05','Banking'),(4,'John','Abraham',2000000,'2019-02-25','Insurance'),(5,'Michael','Mathew',2200000,'2019-02-28','Finance'),(6,'Alex','chreketo',4000000,'2019-05-10','IT'),(7,'Yohan','Soso',1230000,'2019-06-20','Banking');
+Query OK, 6 rows affected (0.00 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+
+mysql> select * from employee;
++-------------+------------+-----------+---------+---------------------+------------+
+| employee_id | first_name | last_name | salary  | joining_date        | department |
++-------------+------------+-----------+---------+---------------------+------------+
+|           1 | Bob        | Kinto     | 1000000 | 2019-01-20 00:00:00 | Finance    |
+|           2 | Jerry      | Kansxo    | 6000000 | 2019-01-15 00:00:00 | IT         |
+|           3 | Philip     | Jose      | 8900000 | 2019-02-05 00:00:00 | Banking    |
+|           4 | John       | Abraham   | 2000000 | 2019-02-25 00:00:00 | Insurance  |
+|           5 | Michael    | Mathew    | 2200000 | 2019-02-28 00:00:00 | Finance    |
+|           6 | Alex       | chreketo  | 4000000 | 2019-05-10 00:00:00 | IT         |
+|           7 | Yohan      | Soso      | 1230000 | 2019-06-20 00:00:00 | Banking    |
++-------------+------------+-----------+---------+---------------------+------------+
+7 rows in set (0.00 sec)
+
+mysql> select first_name,last_name from employee;
++------------+-----------+
+| first_name | last_name |
++------------+-----------+
+| Bob        | Kinto     |
+| Jerry      | Kansxo    |
+| Philip     | Jose      |
+| John       | Abraham   |
+| Michael    | Mathew    |
+| Alex       | chreketo  |
+| Yohan      | Soso      |
++------------+-----------+
+7 rows in set (0.00 sec)
+
+mysql> select count(department) from employee;
++-------------------+
+| count(department) |
++-------------------+
+|                 7 |
++-------------------+
+1 row in set (0.00 sec)
+
+mysql> select count(department) from employee HAVING 'IT';
+Empty set, 1 warning (0.00 sec)
+
+mysql> select * from employee where department = 'IT';
++-------------+------------+-----------+---------+---------------------+------------+
+| employee_id | first_name | last_name | salary  | joining_date        | department |
++-------------+------------+-----------+---------+---------------------+------------+
+|           2 | Jerry      | Kansxo    | 6000000 | 2019-01-15 00:00:00 | IT         |
+|           6 | Alex       | chreketo  | 4000000 | 2019-05-10 00:00:00 | IT         |
++-------------+------------+-----------+---------+---------------------+------------+
+2 rows in set (0.00 sec)
+
+mysql> ###
+mysql> create * from employee where marks > '2019-02-01';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '* from employee where marks > '2019-02-01'' at line 1
+mysql> create * from employee where joining_date > '2019-02-01';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '* from employee where joining_date > '2019-02-01'' at line 1
+mysql> create * from employee where joining_date >= '2019-02-01';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '* from employee where joining_date >= '2019-02-01'' at line 1
+mysql> SELECT * FROM employee WHERE joining_date >= '2019-02-01';
++-------------+------------+-----------+---------+---------------------+------------+
+| employee_id | first_name | last_name | salary  | joining_date        | department |
++-------------+------------+-----------+---------+---------------------+------------+
+|           3 | Philip     | Jose      | 8900000 | 2019-02-05 00:00:00 | Banking    |
+|           4 | John       | Abraham   | 2000000 | 2019-02-25 00:00:00 | Insurance  |
+|           5 | Michael    | Mathew    | 2200000 | 2019-02-28 00:00:00 | Finance    |
+|           6 | Alex       | chreketo  | 4000000 | 2019-05-10 00:00:00 | IT         |
+|           7 | Yohan      | Soso      | 1230000 | 2019-06-20 00:00:00 | Banking    |
++-------------+------------+-----------+---------+---------------------+------------+
+5 rows in set (0.00 sec)
+
+mysql> select * from employee where joining_date >= '2019-02-01';
++-------------+------------+-----------+---------+---------------------+------------+
+| employee_id | first_name | last_name | salary  | joining_date        | department |
++-------------+------------+-----------+---------+---------------------+------------+
+|           3 | Philip     | Jose      | 8900000 | 2019-02-05 00:00:00 | Banking    |
+|           4 | John       | Abraham   | 2000000 | 2019-02-25 00:00:00 | Insurance  |
+|           5 | Michael    | Mathew    | 2200000 | 2019-02-28 00:00:00 | Finance    |
+|           6 | Alex       | chreketo  | 4000000 | 2019-05-10 00:00:00 | IT         |
+|           7 | Yohan      | Soso      | 1230000 | 2019-06-20 00:00:00 | Banking    |
++-------------+------------+-----------+---------+---------------------+------------+
+5 rows in set (0.00 sec)
+
+mysql> ###Q4: What is the average salary of employees in the Finance department?
+mysql> select * from employee;
++-------------+------------+-----------+---------+---------------------+------------+
+| employee_id | first_name | last_name | salary  | joining_date        | department |
++-------------+------------+-----------+---------+---------------------+------------+
+|           1 | Bob        | Kinto     | 1000000 | 2019-01-20 00:00:00 | Finance    |
+|           2 | Jerry      | Kansxo    | 6000000 | 2019-01-15 00:00:00 | IT         |
+|           3 | Philip     | Jose      | 8900000 | 2019-02-05 00:00:00 | Banking    |
+|           4 | John       | Abraham   | 2000000 | 2019-02-25 00:00:00 | Insurance  |
+|           5 | Michael    | Mathew    | 2200000 | 2019-02-28 00:00:00 | Finance    |
+|           6 | Alex       | chreketo  | 4000000 | 2019-05-10 00:00:00 | IT         |
+|           7 | Yohan      | Soso      | 1230000 | 2019-06-20 00:00:00 | Banking    |
++-------------+------------+-----------+---------+---------------------+------------+
+7 rows in set (0.00 sec)
+
+mysql> select avg(salary) from employee where department = 'Finance';
++-------------+
+| avg(salary) |
++-------------+
+|     1600000 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> ##Find the maximum salary in the Banking department.
+mysql> select max(salary) from employee where department = 'Banking';
++-------------+
+| max(salary) |
++-------------+
+|     8900000 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> ##Calculate the total salary paid to employees in each department.
+mysql> select sum(salary) from employee where department = 'Banking','IT','Finance','Insurance';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ','IT','Finance','Insurance'' at line 1
+mysql> select sum(salary) from employee where department = 'Banking' and department='IT' and department='Finance' and department='Insurance';
+
++-------------+
+| sum(salary) |
++-------------+
+|        NULL |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select sum(salary) from employee where department = 'Banking' , department='IT' , department='Finance' , department='Insurance';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ', department='IT' , department='Finance' , department='Insurance'' at line 1
+mysql> select sum(salary) from employee where department in ('Banking' , 'IT' , 'Finance' ,'Insurance');
++-------------+
+| sum(salary) |
++-------------+
+|    25330000 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT SUM(salary) 
+    -> FROM employee 
+    -> WHERE department IN ('Banking', 'IT', 'Finance', 'Insurance');
++-------------+
+| SUM(salary) |
++-------------+
+|    25330000 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT department, SUM(salary) AS total_salary 
+    -> FROM employee 
+    -> WHERE department IN ('Banking', 'IT', 'Finance', 'Insurance') 
+    -> GROUP BY department;
++------------+--------------+
+| department | total_salary |
++------------+--------------+
+| Finance    |      3200000 |
+| IT         |     10000000 |
+| Banking    |     10130000 |
+| Insurance  |      2000000 |
++------------+--------------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT department, SUM(salary) FROM employee  WHERE department IN ('Banking', 'IT', 'Finance', 'Insurance')  GROUP BY department;
++------------+-------------+
+| department | SUM(salary) |
++------------+-------------+
+| Finance    |     3200000 |
+| IT         |    10000000 |
+| Banking    |    10130000 |
+| Insurance  |     2000000 |
++------------+-------------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT SUM(salary)  FROM employee  WHERE department IN ('Banking', 'IT', 'Finance', 'Insurance') group by department;
++-------------+
+| SUM(salary) |
++-------------+
+|     3200000 |
+|    10000000 |
+|    10130000 |
+|     2000000 |
++-------------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT department, SUM(salary)  FROM employee  WHERE department IN ('Banking', 'IT', 'Finance', 'Insurance') group by department;
++------------+-------------+
+| department | SUM(salary) |
++------------+-------------+
+| Finance    |     3200000 |
+| IT         |    10000000 |
+| Banking    |    10130000 |
+| Insurance  |     2000000 |
++------------+-------------+
+4 rows in set (0.00 sec)
+
+mysql> ###Retrieve the employee(s) with the highest salary.
+mysql> #select max(marks) as addition from student;
+mysql> select * from employee;
++-------------+------------+-----------+---------+---------------------+------------+
+| employee_id | first_name | last_name | salary  | joining_date        | department |
++-------------+------------+-----------+---------+---------------------+------------+
+|           1 | Bob        | Kinto     | 1000000 | 2019-01-20 00:00:00 | Finance    |
+|           2 | Jerry      | Kansxo    | 6000000 | 2019-01-15 00:00:00 | IT         |
+|           3 | Philip     | Jose      | 8900000 | 2019-02-05 00:00:00 | Banking    |
+|           4 | John       | Abraham   | 2000000 | 2019-02-25 00:00:00 | Insurance  |
+|           5 | Michael    | Mathew    | 2200000 | 2019-02-28 00:00:00 | Finance    |
+|           6 | Alex       | chreketo  | 4000000 | 2019-05-10 00:00:00 | IT         |
+|           7 | Yohan      | Soso      | 1230000 | 2019-06-20 00:00:00 | Banking    |
++-------------+------------+-----------+---------+---------------------+------------+
+7 rows in set (0.00 sec)
+
+mysql> select max(salary) as maximum_salary from employee;
++----------------+
+| maximum_salary |
++----------------+
+|        8900000 |
++----------------+
+1 row in set (0.00 sec)
+
+mysql> select department,max(salary) as maximum_salary from employee;
+ERROR 1140 (42000): In aggregated query without GROUP BY, expression #1 of SELECT list contains nonaggregated column 'college.employee.department'; this is incompatible with sql_mode=only_full_group_by
+mysql> select max(salary) as maximum_salary from employee;
++----------------+
+| maximum_salary |
++----------------+
+|        8900000 |
++----------------+
+1 row in set (0.00 sec)
+
+mysql> ##List all employees with a salary greater than 3000000, ordered by Joining_date.
+mysql> select salary where >3000000;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '>3000000' at line 1
+mysql> select * from employee where salary > 3000000;
++-------------+------------+-----------+---------+---------------------+------------+
+| employee_id | first_name | last_name | salary  | joining_date        | department |
++-------------+------------+-----------+---------+---------------------+------------+
+|           2 | Jerry      | Kansxo    | 6000000 | 2019-01-15 00:00:00 | IT         |
+|           3 | Philip     | Jose      | 8900000 | 2019-02-05 00:00:00 | Banking    |
+|           6 | Alex       | chreketo  | 4000000 | 2019-05-10 00:00:00 | IT         |
++-------------+------------+-----------+---------+---------------------+------------+
+3 rows in set (0.00 sec)
+
+mysql> select * from employee where salary >= 3000000;
++-------------+------------+-----------+---------+---------------------+------------+
+| employee_id | first_name | last_name | salary  | joining_date        | department |
++-------------+------------+-----------+---------+---------------------+------------+
+|           2 | Jerry      | Kansxo    | 6000000 | 2019-01-15 00:00:00 | IT         |
+|           3 | Philip     | Jose      | 8900000 | 2019-02-05 00:00:00 | Banking    |
+|           6 | Alex       | chreketo  | 4000000 | 2019-05-10 00:00:00 | IT         |
++-------------+------------+-----------+---------+---------------------+------------+
+3 rows in set (0.00 sec)
+
+mysql> select * from employee;
++-------------+------------+-----------+---------+---------------------+------------+
+| employee_id | first_name | last_name | salary  | joining_date        | department |
++-------------+------------+-----------+---------+---------------------+------------+
+|           1 | Bob        | Kinto     | 1000000 | 2019-01-20 00:00:00 | Finance    |
+|           2 | Jerry      | Kansxo    | 6000000 | 2019-01-15 00:00:00 | IT         |
+|           3 | Philip     | Jose      | 8900000 | 2019-02-05 00:00:00 | Banking    |
+|           4 | John       | Abraham   | 2000000 | 2019-02-25 00:00:00 | Insurance  |
+|           5 | Michael    | Mathew    | 2200000 | 2019-02-28 00:00:00 | Finance    |
+|           6 | Alex       | chreketo  | 4000000 | 2019-05-10 00:00:00 | IT         |
+|           7 | Yohan      | Soso      | 1230000 | 2019-06-20 00:00:00 | Banking    |
++-------------+------------+-----------+---------+---------------------+------------+
+7 rows in set (0.00 sec)
+
+mysql> select * from employee where salary >= 3000000 order by joining_date;
++-------------+------------+-----------+---------+---------------------+------------+
+| employee_id | first_name | last_name | salary  | joining_date        | department |
++-------------+------------+-----------+---------+---------------------+------------+
+|           2 | Jerry      | Kansxo    | 6000000 | 2019-01-15 00:00:00 | IT         |
+|           3 | Philip     | Jose      | 8900000 | 2019-02-05 00:00:00 | Banking    |
+|           6 | Alex       | chreketo  | 4000000 | 2019-05-10 00:00:00 | IT         |
++-------------+------------+-----------+---------+---------------------+------------+
+3 rows in set (0.00 sec)
+
+mysql> ###Retrieve the details of employees whose Last_name starts with 'K'.
+mysql> select * from employee where last_name like 'K%';
++-------------+------------+-----------+---------+---------------------+------------+
+| employee_id | first_name | last_name | salary  | joining_date        | department |
++-------------+------------+-----------+---------+---------------------+------------+
+|           1 | Bob        | Kinto     | 1000000 | 2019-01-20 00:00:00 | Finance    |
+|           2 | Jerry      | Kansxo    | 6000000 | 2019-01-15 00:00:00 | IT         |
++-------------+------------+-----------+---------+---------------------+------------+
+2 rows in set (0.00 sec)
+
+mysql> ###Find the second highest salary in the company.
+mysql> select max(salary) as maximum_salary from employee;
++----------------+
+| maximum_salary |
++----------------+
+|        8900000 |
++----------------+
+1 row in set (0.00 sec)
+
+mysql> select max(salary) as second_maximum_salary from employee where salary<(select max(salary) from employee);
++-----------------------+
+| second_maximum_salary |
++-----------------------+
+|               6000000 |
++-----------------------+
+1 row in set (0.00 sec)
+
+mysql> ###List employees who earn more than the average salary of the entire company.
+mysql> select avg(salary) as average_salary from employee;
++--------------------+
+| average_salary     |
++--------------------+
+| 3618571.4285714286 |
++--------------------+
+1 row in set (0.00 sec)
+
+mysql> select salary>avg(salary) as average_salary from employee;
+ERROR 1140 (42000): In aggregated query without GROUP BY, expression #1 of SELECT list contains nonaggregated column 'college.employee.salary'; this is incompatible with sql_mode=only_full_group_by
+mysql> select * from employee where salary> (select avg(salary) from employee);
++-------------+------------+-----------+---------+---------------------+------------+
+| employee_id | first_name | last_name | salary  | joining_date        | department |
++-------------+------------+-----------+---------+---------------------+------------+
+|           2 | Jerry      | Kansxo    | 6000000 | 2019-01-15 00:00:00 | IT         |
+|           3 | Philip     | Jose      | 8900000 | 2019-02-05 00:00:00 | Banking    |
+|           6 | Alex       | chreketo  | 4000000 | 2019-05-10 00:00:00 | IT         |
++-------------+------------+-----------+---------+---------------------+------------+
+3 rows in set (0.01 sec)
+
+mysql> SELECT employee_id, first_name, last_name, salary
+    -> FROM employee
+    -> WHERE salary > (SELECT AVG(salary) FROM employee);
++-------------+------------+-----------+---------+
+| employee_id | first_name | last_name | salary  |
++-------------+------------+-----------+---------+
+|           2 | Jerry      | Kansxo    | 6000000 |
+|           3 | Philip     | Jose      | 8900000 |
+|           6 | Alex       | chreketo  | 4000000 |
++-------------+------------+-----------+---------+
+3 rows in set (0.00 sec)
+
+mysql> ##Update the salary of employees in the Insurance department by a 10% increase.
+mysql> select * from employee;
++-------------+------------+-----------+---------+---------------------+------------+
+| employee_id | first_name | last_name | salary  | joining_date        | department |
++-------------+------------+-----------+---------+---------------------+------------+
+|           1 | Bob        | Kinto     | 1000000 | 2019-01-20 00:00:00 | Finance    |
+|           2 | Jerry      | Kansxo    | 6000000 | 2019-01-15 00:00:00 | IT         |
+|           3 | Philip     | Jose      | 8900000 | 2019-02-05 00:00:00 | Banking    |
+|           4 | John       | Abraham   | 2000000 | 2019-02-25 00:00:00 | Insurance  |
+|           5 | Michael    | Mathew    | 2200000 | 2019-02-28 00:00:00 | Finance    |
+|           6 | Alex       | chreketo  | 4000000 | 2019-05-10 00:00:00 | IT         |
+|           7 | Yohan      | Soso      | 1230000 | 2019-06-20 00:00:00 | Banking    |
++-------------+------------+-----------+---------+---------------------+------------+
+7 rows in set (0.00 sec)
+
+mysql> update employee set salary=salary+10%;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> update employee set salary=salary*1.10 where department='Insurance'
+    -> ;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from employee;
++-------------+------------+-----------+---------+---------------------+------------+
+| employee_id | first_name | last_name | salary  | joining_date        | department |
++-------------+------------+-----------+---------+---------------------+------------+
+|           1 | Bob        | Kinto     | 1000000 | 2019-01-20 00:00:00 | Finance    |
+|           2 | Jerry      | Kansxo    | 6000000 | 2019-01-15 00:00:00 | IT         |
+|           3 | Philip     | Jose      | 8900000 | 2019-02-05 00:00:00 | Banking    |
+|           4 | John       | Abraham   | 2200000 | 2019-02-25 00:00:00 | Insurance  |
+|           5 | Michael    | Mathew    | 2200000 | 2019-02-28 00:00:00 | Finance    |
+|           6 | Alex       | chreketo  | 4000000 | 2019-05-10 00:00:00 | IT         |
+|           7 | Yohan      | Soso      | 1230000 | 2019-06-20 00:00:00 | Banking    |
++-------------+------------+-----------+---------+---------------------+------------+
+7 rows in set (0.00 sec)
+
+mysql> update employee set salary = salary*1.10 where department='Insurance';
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from employee;
++-------------+------------+-----------+---------+---------------------+------------+
+| employee_id | first_name | last_name | salary  | joining_date        | department |
++-------------+------------+-----------+---------+---------------------+------------+
+|           1 | Bob        | Kinto     | 1000000 | 2019-01-20 00:00:00 | Finance    |
+|           2 | Jerry      | Kansxo    | 6000000 | 2019-01-15 00:00:00 | IT         |
+|           3 | Philip     | Jose      | 8900000 | 2019-02-05 00:00:00 | Banking    |
+|           4 | John       | Abraham   | 2420000 | 2019-02-25 00:00:00 | Insurance  |
+|           5 | Michael    | Mathew    | 2200000 | 2019-02-28 00:00:00 | Finance    |
+|           6 | Alex       | chreketo  | 4000000 | 2019-05-10 00:00:00 | IT         |
+|           7 | Yohan      | Soso      | 1230000 | 2019-06-20 00:00:00 | Banking    |
++-------------+------------+-----------+---------+---------------------+------------+
+7 rows in set (0.00 sec)
+
+mysql> UPDATE employee
+    -> SET salary = salary * 1.10
+    -> WHERE department = 'Insurance';
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from employee;
++-------------+------------+-----------+---------+---------------------+------------+
+| employee_id | first_name | last_name | salary  | joining_date        | department |
++-------------+------------+-----------+---------+---------------------+------------+
+|           1 | Bob        | Kinto     | 1000000 | 2019-01-20 00:00:00 | Finance    |
+|           2 | Jerry      | Kansxo    | 6000000 | 2019-01-15 00:00:00 | IT         |
+|           3 | Philip     | Jose      | 8900000 | 2019-02-05 00:00:00 | Banking    |
+|           4 | John       | Abraham   | 2662000 | 2019-02-25 00:00:00 | Insurance  |
+|           5 | Michael    | Mathew    | 2200000 | 2019-02-28 00:00:00 | Finance    |
+|           6 | Alex       | chreketo  | 4000000 | 2019-05-10 00:00:00 | IT         |
+|           7 | Yohan      | Soso      | 1230000 | 2019-06-20 00:00:00 | Banking    |
++-------------+------------+-----------+---------+---------------------+------------+
+7 rows in set (0.00 sec)
+
+mysql> ##Delete records of employees who joined before 2019-02-01.
+mysql> delete from employee where joining_date>'2019-02-01';
+Query OK, 5 rows affected (0.00 sec)
+
+mysql> select * from employee;
++-------------+------------+-----------+---------+---------------------+------------+
+| employee_id | first_name | last_name | salary  | joining_date        | department |
++-------------+------------+-----------+---------+---------------------+------------+
+|           1 | Bob        | Kinto     | 1000000 | 2019-01-20 00:00:00 | Finance    |
+|           2 | Jerry      | Kansxo    | 6000000 | 2019-01-15 00:00:00 | IT         |
++-------------+------------+-----------+---------+---------------------+------------+
+2 rows in set (0.01 sec)
+
+mysql> delete from employee where joining_date<'2019-02-01';
+Query OK, 2 rows affected (0.00 sec)
+
+mysql> select * from employee;
+Empty set (0.00 sec)
+
+mysql> insert into employee values (1,'Bob','Kinto',1000000,'2019-01-20','Finance');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into employee values (2,'Jerry','Kansxo',6000000,'2019-01-15','IT'), (3,'Philip','Jose',8900000,'2019-02-05','Banking'),(4,'John','Abraham',2000000,'2019-02-25','Insurance'),(5,'Michael','Mathew',2200000,'2019-02-28','Finance'),(6,'Alex','chreketo',4000000,'2019-05-10','IT'),(7,'Yohan','Soso',1230000,'2019-06-20','Banking');
+Query OK, 6 rows affected (0.00 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+
+mysql> select * from employee;
++-------------+------------+-----------+---------+---------------------+------------+
+| employee_id | first_name | last_name | salary  | joining_date        | department |
++-------------+------------+-----------+---------+---------------------+------------+
+|           1 | Bob        | Kinto     | 1000000 | 2019-01-20 00:00:00 | Finance    |
+|           2 | Jerry      | Kansxo    | 6000000 | 2019-01-15 00:00:00 | IT         |
+|           3 | Philip     | Jose      | 8900000 | 2019-02-05 00:00:00 | Banking    |
+|           4 | John       | Abraham   | 2000000 | 2019-02-25 00:00:00 | Insurance  |
+|           5 | Michael    | Mathew    | 2200000 | 2019-02-28 00:00:00 | Finance    |
+|           6 | Alex       | chreketo  | 4000000 | 2019-05-10 00:00:00 | IT         |
+|           7 | Yohan      | Soso      | 1230000 | 2019-06-20 00:00:00 | Banking    |
++-------------+------------+-----------+---------+---------------------+------------+
+7 rows in set (0.01 sec)
+
+mysql> delete from employee where joining_date<'2019-02-01';
+Query OK, 2 rows affected (0.01 sec)
+
+mysql> select * from employee;
++-------------+------------+-----------+---------+---------------------+------------+
+| employee_id | first_name | last_name | salary  | joining_date        | department |
++-------------+------------+-----------+---------+---------------------+------------+
+|           3 | Philip     | Jose      | 8900000 | 2019-02-05 00:00:00 | Banking    |
+|           4 | John       | Abraham   | 2000000 | 2019-02-25 00:00:00 | Insurance  |
+|           5 | Michael    | Mathew    | 2200000 | 2019-02-28 00:00:00 | Finance    |
+|           6 | Alex       | chreketo  | 4000000 | 2019-05-10 00:00:00 | IT         |
+|           7 | Yohan      | Soso      | 1230000 | 2019-06-20 00:00:00 | Banking    |
++-------------+------------+-----------+---------+---------------------+------------+
+5 rows in set (0.00 sec)
+
