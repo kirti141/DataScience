@@ -1,0 +1,1079 @@
+Dataset link:
+https://drive.google.com/drive/folders/1YujA_GjKigwSJXbRJTkO1l2p1gMmm8ai
+
+
+20 August 2024
+
+create table student(roll int primary key, name varchar(10) not null, marks float default 40.00);
+insert into student (roll,name,marks) values (2,'ram',77.45);
+select roll,name,marks from student;
+select * from student;
+create table student1 (edate datetime, roll int, name varchar(10), marks float);
+insert into student1( edate, roll, name,marks) values ('2024-09-10 05:45:22',2, 'vijay' 78.9);
+insert into student1 ( edate, roll, name,marks) values (now(),3, 'priya', 88.9);
+select * from student1;
+alter table student add column gender varchar(2) default 'M';
+select * from student1;
+alter table student drop column gender;
+select * from student1;
+alter table student modify column roll tinyint;
+desc student;
+alter table student rename column roll to id;
+
+
+21 August 2024
+insert into student values (9,'ranjeet',18.45),(10,'rajneeti',1.45),(11,'raman',80.45);
+select * from student where marks > 60;
+select * from student where marks = 60;
+create table first_class select name, marks from student where marks >60;
+select * from first_class;
+select * from student where marks >60 and roll <5;
+select * from student where marks >60 and marks <70;
+select * from student where marks between 60 and 70;
+select * from student where roll =4 or roll=6;
+select * from student where roll in (4,6);
+select * from student where roll in (4,6,2,8);
+select * from student where roll not in (4,6,2,8);
+delete from student where roll=5;
+delete from first_class;
+truncate first_class;
+select * from first_class;
+##Empty set (0.000 sec)
+update student set marks=60.45 where roll=1;
+update student set name='gaurav' where roll=4;
+update student set marks=600.45,name='Aditya' where roll=3;
+update student set marks=marks-0.5;
+update student set marks=marks+5;
+
+MariaDB [mydb]> select * from student;
++------+----------+--------+
+| roll | name     | marks  |
++------+----------+--------+
+|    1 | AJAY     |  64.95 |
+|    2 | ram      |  81.95 |
+|    3 | Aditya   | 604.95 |
+|    4 | gaurav   |  81.95 |
+|    6 | ramu     |   44.5 |
+|    7 | kirti    |   72.3 |
+|    8 | rani     |  82.95 |
+|    9 | ranjeet  |  22.95 |
+|   10 | rajneeti |   5.95 |
+|   11 | raman    |  84.95 |
+|   12 | raju     |  12.95 |
+|   13 | ranjeet  |   64.5 |
++------+----------+--------+
+12 rows in set (0.000 sec)
+
+select * from student order by marks asc;
++------+----------+--------+
+| roll | name     | marks  |
++------+----------+--------+
+|   10 | rajneeti |   5.95 |
+|   12 | raju     |  12.95 |
+|    9 | ranjeet  |  22.95 |
+|    6 | ramu     |   44.5 |
+|   13 | ranjeet  |   64.5 |
+|    1 | AJAY     |  64.95 |
+|    7 | kirti    |   72.3 |
+|    4 | gaurav   |  81.95 |
+|    2 | ram      |  81.95 |
+|    8 | rani     |  82.95 |
+|   11 | raman    |  84.95 |
+|    3 | Aditya   | 604.95 |
++------+----------+--------+
+12 rows in set (0.001 sec)
+
+
+select * from student order by name desc;
++------+----------+--------+
+| roll | name     | marks  |
++------+----------+--------+
+|   13 | ranjeet  |   64.5 |
+|    9 | ranjeet  |  22.95 |
+|    8 | rani     |  82.95 |
+|    6 | ramu     |   44.5 |
+|   11 | raman    |  84.95 |
+|    2 | ram      |  81.95 |
+|   12 | raju     |  12.95 |
+|   10 | rajneeti |   5.95 |
+|    7 | kirti    |   72.3 |
+|    4 | gaurav   |  81.95 |
+|    1 | AJAY     |  64.95 |
+|    3 | Aditya   | 604.95 |
++------+----------+--------+
+12 rows in set (0.000 sec)
+
+alter table student add column class varchar(2) default 'TY';
+Query OK, 0 rows affected (0.013 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [mydb]> select * from student;
++------+----------+--------+-------+
+| roll | name     | marks  | class |
++------+----------+--------+-------+
+|    1 | AJAY     |  64.95 | TY    |
+|    2 | ram      |  81.95 | TY    |
+|    3 | Aditya   | 604.95 | TY    |
+|    4 | gaurav   |  81.95 | TY    |
+|    6 | ramu     |   44.5 | TY    |
+|    7 | kirti    |   72.3 | TY    |
+|    8 | rani     |  82.95 | TY    |
+|    9 | ranjeet  |  22.95 | TY    |
+|   10 | rajneeti |   5.95 | TY    |
+|   11 | raman    |  84.95 | TY    |
+|   12 | raju     |  12.95 | TY    |
+|   13 | ranjeet  |   64.5 | TY    |
++------+----------+--------+-------+
+12 rows in set (0.000 sec)
+
+update student set class='SY' where roll in (3,6,7,8);
+Query OK, 4 rows affected (0.007 sec)
+Rows matched: 4  Changed: 4  Warnings: 0
+
+MariaDB [mydb]> select * from student;
++------+----------+--------+-------+
+| roll | name     | marks  | class |
++------+----------+--------+-------+
+|    1 | AJAY     |  64.95 | TY    |
+|    2 | ram      |  81.95 | TY    |
+|    3 | Aditya   | 604.95 | SY    |
+|    4 | gaurav   |  81.95 | TY    |
+|    6 | ramu     |   44.5 | SY    |
+|    7 | kirti    |   72.3 | SY    |
+|    8 | rani     |  82.95 | SY    |
+|    9 | ranjeet  |  22.95 | TY    |
+|   10 | rajneeti |   5.95 | TY    |
+|   11 | raman    |  84.95 | TY    |
+|   12 | raju     |  12.95 | TY    |
+|   13 | ranjeet  |   64.5 | TY    |
++------+----------+--------+-------+
+12 rows in set (0.000 sec)
+
+
+ select class from student group by class;
++-------+
+| class |
++-------+
+| FY    |
+| SY    |
+| TY    |
++-------+
+3 rows in set (0.000 sec)
+
+
+ select 56+67;
++-------+
+| 56+67 |
++-------+
+|   123 |
++-------+
+
+select 56 div 66;
++-----------+
+| 56 div 66 |
++-----------+
+|         0 |
++-----------+
+1 row in set (0.000 sec)
+
+MariaDB [mydb]> select 56 / 66;
++---------+
+| 56 / 66 |
++---------+
+|  0.8485 |
++---------+
+1 row in set (0.000 sec)
+
+MariaDB [mydb]> select 12 div 5;
++----------+
+| 12 div 5 |
++----------+
+|        2 |
++----------+
+1 row in set (0.000 sec)
+
+select 12 % 5;
++--------+
+| 12 % 5 |
++--------+
+|      2 |
++--------+
+
+select 12 % 5 as rem;
++------+
+| rem  |
++------+
+|    2 |
++------+
+1 row in set (0.000 sec)
+
+
+
+select * from student;
++------+----------+--------+-------+
+| roll | name     | marks  | class |
++------+----------+--------+-------+
+|    1 | AJAY     |  64.95 | TY    |
+|    2 | ram      |  81.95 | FY    |
+|    3 | Aditya   | 604.95 | SY    |
+|    4 | gaurav   |  81.95 | TY    |
+|    6 | ramu     |   44.5 | SY    |
+|    7 | kirti    |   72.3 | SY    |
+|    8 | rani     |  82.95 | SY    |
+|    9 | ranjeet  |  22.95 | TY    |
+|   10 | rajneeti |   5.95 | FY    |
+|   11 | raman    |  84.95 | TY    |
+|   12 | raju     |  12.95 | TY    |
+|   13 | ranjeet  |   64.5 | TY    |
++------+----------+--------+-------+
+12 rows in set (0.000 sec)
+
+MariaDB [mydb]> select roll, name, marks/10 -0.24 as grade from student;
++------+----------+---------------------+
+| roll | name     | grade               |
++------+----------+---------------------+
+|    1 | AJAY     |   6.254999694824218 |
+|    2 | ram      |  7.9549996948242185 |
+|    3 | Aditya   |   60.25500122070312 |
+|    4 | gaurav   |  7.9549996948242185 |
+|    6 | ramu     |                4.21 |
+|    7 | kirti    |   6.990000305175781 |
+|    8 | rani     |   8.054999694824218 |
+|    9 | ranjeet  |   2.055000076293945 |
+|   10 | rajneeti | 0.35499998092651364 |
+|   11 | raman    |    8.25499969482422 |
+|   12 | raju     |  1.0549999809265136 |
+|   13 | ranjeet  |                6.21 |
++------+----------+---------------------+
+12 rows in set (0.000 sec)
+
+
+select roll, name, format(marks/10 -0.24,2) as grade from student;
++------+----------+-------+
+| roll | name     | grade |
++------+----------+-------+
+|    1 | AJAY     | 6.25  |
+|    2 | ram      | 7.95  |
+|    3 | Aditya   | 60.26 |
+|    4 | gaurav   | 7.95  |
+|    6 | ramu     | 4.21  |
+|    7 | kirti    | 6.99  |
+|    8 | rani     | 8.05  |
+|    9 | ranjeet  | 2.06  |
+|   10 | rajneeti | 0.35  |
+|   11 | raman    | 8.25  |
+|   12 | raju     | 1.05  |
+|   13 | ranjeet  | 6.21  |
++------+----------+-------+
+12 rows in set (0.001 sec)
+
+
+create table temp select roll, name, format(marks/10 -0.24,2) as grade from student;
+Query OK, 12 rows affected (0.021 sec)
+Records: 12  Duplicates: 0  Warnings: 0
+
+MariaDB [mydb]> create table temp select roll, name, format(marks/10 -0.24,2) as grade from student;
+ERROR 1050 (42S01): Table 'temp' already exists
+MariaDB [mydb]> select * from temp;
++------+----------+-------+
+| roll | name     | grade |
++------+----------+-------+
+|    1 | AJAY     | 6.25  |
+|    2 | ram      | 7.95  |
+|    3 | Aditya   | 60.26 |
+|    4 | gaurav   | 7.95  |
+|    6 | ramu     | 4.21  |
+|    7 | kirti    | 6.99  |
+|    8 | rani     | 8.05  |
+|    9 | ranjeet  | 2.06  |
+|   10 | rajneeti | 0.35  |
+|   11 | raman    | 8.25  |
+|   12 | raju     | 1.05  |
+|   13 | ranjeet  | 6.21  |
++------+----------+-------+
+
+ select roll, name, format(marks/10 -0.24,2) as grade from student where marks >70;
++------+--------+-------+
+| roll | name   | grade |
++------+--------+-------+
+|    2 | ram    | 7.95  |
+|    3 | Aditya | 60.26 |
+|    4 | gaurav | 7.95  |
+|    7 | kirti  | 6.99  |
+|    8 | rani   | 8.05  |
+|   11 | raman  | 8.25  |
++------+--------+-------+
+6 rows in set (0.001 sec)
+
+
+ insert into temp select roll+10, name, format(marks/10 -0.24,2) as grade from student where marks >70;
+Query OK, 6 rows affected (0.007 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+
+MariaDB [mydb]> select * from temp;
++------+----------+-------+
+| roll | name     | grade |
++------+----------+-------+
+|    1 | AJAY     | 6.25  |
+|    2 | ram      | 7.95  |
+|    3 | Aditya   | 60.26 |
+|    4 | gaurav   | 7.95  |
+|    6 | ramu     | 4.21  |
+|    7 | kirti    | 6.99  |
+|    8 | rani     | 8.05  |
+|    9 | ranjeet  | 2.06  |
+|   10 | rajneeti | 0.35  |
+|   11 | raman    | 8.25  |
+|   12 | raju     | 1.05  |
+|   13 | ranjeet  | 6.21  |
+|   12 | ram      | 7.95  |
+|   13 | Aditya   | 60.26 |
+|   14 | gaurav   | 7.95  |
+|   17 | kirti    | 6.99  |
+|   18 | rani     | 8.05  |
+|   21 | raman    | 8.25  |
++------+----------+-------+
+18 rows in set (0.000 sec)
+
+
+select * from temp where name like 'A%';
++------+--------+-------+
+| roll | name   | grade |
++------+--------+-------+
+|    1 | AJAY   | 6.25  |
+|    3 | Aditya | 60.26 |
+|   13 | Aditya | 60.26 |
++------+--------+-------+
+
+select * from temp where name like 'A%a';
++------+--------+-------+
+| roll | name   | grade |
++------+--------+-------+
+|    3 | Aditya | 60.26 |
+|   13 | Aditya | 60.26 |
++------+--------+-------+
+
+ select * from student where marks like '6%';
++------+---------+--------+-------+
+| roll | name    | marks  | class |
++------+---------+--------+-------+
+|    1 | AJAY    |  64.95 | TY    |
+|    3 | Aditya  | 604.95 | SY    |
+|   13 | ranjeet |   64.5 | TY    |
++------+---------+--------+-------+
+3 rows in set (0.000 sec)
+
+
+select * from student where marks like '6%' and class='TY';
++------+---------+-------+-------+
+| roll | name    | marks | class |
++------+---------+-------+-------+
+|    1 | AJAY    | 64.95 | TY    |
+|   13 | ranjeet |  64.5 | TY    |
++------+---------+-------+-------+
+
+ select * from student where name like '____';
++------+------+-------+-------+
+| roll | name | marks | class |
++------+------+-------+-------+
+|    1 | AJAY | 64.95 | TY    |
+|    6 | ramu |  44.5 | SY    |
+|    8 | rani | 82.95 | SY    |
+|   12 | raju | 12.95 | TY    |
++------+------+-------+-------+
+4 rows in set (0.000 sec)
+
+
+MariaDB [mydb]> select * from student where name like '_a__';
++------+------+-------+-------+
+| roll | name | marks | class |
++------+------+-------+-------+
+|    6 | ramu |  44.5 | SY    |
+|    8 | rani | 82.95 | SY    |
+|   12 | raju | 12.95 | TY    |
++------+------+-------+-------+
+3 rows in set (0.000 sec)
+
+MariaDB [mydb]> select * from student where name like '_i%';
++------+-------+-------+-------+
+| roll | name  | marks | class |
++------+-------+-------+-------+
+|    7 | kirti |  72.3 | SY    |
++------+-------+-------+-------+
+1 row in set (0.000 sec)
+
+
+select * from student where marks like '_2%';
++------+---------+-------+-------+
+| roll | name    | marks | class |
++------+---------+-------+-------+
+|    7 | kirti   |  72.3 | SY    |
+|    8 | rani    | 82.95 | SY    |
+|    9 | ranjeet | 22.95 | TY    |
+|   12 | raju    | 12.95 | TY    |
++------+---------+-------+-------+
+4 rows in set (0.000 sec)
+
+
+select count(name) from student;
++-------------+
+| count(name) |
++-------------+
+|          12 |
++-------------+
+
+select sum(marks) as addition from student;
++--------------------+
+| addition           |
++--------------------+
+| 1224.8500003814697 |
++--------------------+
+1 row in set (0.000 sec)
+
+select min(marks) as addition from student;
++----------+
+| addition |
++----------+
+|     5.95 |
++----------+
+1 row in set (0.000 sec)
+
+MariaDB [mydb]> select max(marks) as addition from student;
++----------+
+| addition |
++----------+
+|   604.95 |
++----------+
+1 row in set (0.000 sec)
+
+select average(marks) as addition from student;
+ERROR 1305 (42000): FUNCTION mydb.average does not exist
+MariaDB [mydb]> select avg(marks) as average from student;
++--------------------+
+| average            |
++--------------------+
+| 102.07083336512248 |
++--------------------+
+1 row in set (0.000 sec)
+
+select format(avg(marks),2) as average from student;
++---------+
+| average |
++---------+
+| 102.07  |
++---------+
+1 row in set (0.000 sec)
+
+
+select distinct class from student;
++-------+
+| class |
++-------+
+| TY    |
+| FY    |
+| SY    |
++-------+
+3 rows in set (0.000 sec)
+
+(sets unique values)
+
+
+rename table temp to temper;
+Query OK, 0 rows affected (0.009 sec)
+
+MariaDB [mydb]> select * from temp;
+ERROR 1146 (42S02): Table 'mydb.temp' doesn't exist
+MariaDB [mydb]> select * from temper;
++------+----------+-------+
+| roll | name     | grade |
++------+----------+-------+
+|    1 | AJAY     | 6.25  |
+|    2 | ram      | 7.95  |
+|    3 | Aditya   | 60.26 |
+|    4 | gaurav   | 7.95  |
+|    6 | ramu     | 4.21  |
+|    7 | kirti    | 6.99  |
+|    8 | rani     | 8.05  |
+|    9 | ranjeet  | 2.06  |
+|   10 | rajneeti | 0.35  |
+|   11 | raman    | 8.25  |
+|   12 | raju     | 1.05  |
+|   13 | ranjeet  | 6.21  |
+|   12 | ram      | 7.95  |
+|   13 | Aditya   | 60.26 |
+|   14 | gaurav   | 7.95  |
+|   17 | kirti    | 6.99  |
+|   18 | rani     | 8.05  |
+|   21 | raman    | 8.25  |
++------+----------+-------+
+18 rows in set (0.002 sec)
+
+
+show tables;
++----------------+
+| Tables_in_mydb |
++----------------+
+| first_class    |
+| student        |
+| student1       |
+| temper         |
++----------------+
+
+select * from student limit 5;
++------+--------+--------+-------+
+| roll | name   | marks  | class |
++------+--------+--------+-------+
+|    1 | AJAY   |  64.95 | TY    |
+|    2 | ram    |  81.95 | FY    |
+|    3 | Aditya | 604.95 | SY    |
+|    4 | gaurav |  81.95 | TY    |
+|    6 | ramu   |   44.5 | SY    |
++------+--------+--------+-------+
+5 rows in set (0.000 sec)
+
+(first five)
+
+select * from student order by marks desc limit 5;
++------+--------+--------+-------+
+| roll | name   | marks  | class |
++------+--------+--------+-------+
+|    3 | Aditya | 604.95 | SY    |
+|   11 | raman  |  84.95 | TY    |
+|    8 | rani   |  82.95 | SY    |
+|    2 | ram    |  81.95 | FY    |
+|    4 | gaurav |  81.95 | TY    |
++------+--------+--------+-------+
+5 rows in set (0.000 sec)
+(first five toppers)
+
+
+print information of students whose marks are above average:
+
+select avg(marks) from student;
++--------------------+
+| avg(marks)         |
++--------------------+
+| 102.07083336512248 |
++--------------------+
+1 row in set (0.001 sec)
+
+
+MariaDB [mydb]> select avg(marks) from student where marks>102;
++-------------------+
+| avg(marks)        |
++-------------------+
+| 604.9500122070312 |
++-------------------+
+1 row in set (0.000 sec)
+
+MariaDB [mydb]> select * from student where marks > (select avg(marks) from student);
++------+--------+--------+-------+
+| roll | name   | marks  | class |
++------+--------+--------+-------+
+|    3 | Aditya | 604.95 | SY    |
++------+--------+--------+-------+
+1 row in set (0.001 sec)
+
+MySQL JOINS
+
+insert into stud1 values (1, 'anil',67.89)
+    -> ;
+Query OK, 1 row affected (0.010 sec)
+
+MariaDB [mydb]> insert into stud1 values (2, 'anis',67.89);
+Query OK, 1 row affected (0.009 sec)
+
+MariaDB [mydb]> insert into stud1 values (3, 'anees',607.89);
+Query OK, 1 row affected (0.001 sec)
+
+MariaDB [mydb]> insert into stud1 values (4, 'khan',607.89);
+Query OK, 1 row affected (0.005 sec)
+
+MariaDB [mydb]> insert into stud1 values (5, 'kumar',607.89);
+Query OK, 1 row affected (0.006 sec)
+
+MariaDB [mydb]> select * from stud1;
+
+select * from stud1;
++------+-------+--------+
+| roll | name  | marks  |
++------+-------+--------+
+|    1 | anil  |  67.89 |
+|    2 | anis  |  67.89 |
+|    3 | anees | 607.89 |
+|    4 | khan  | 607.89 |
+|    5 | kumar | 607.89 |
++------+-------+--------+
+
+ select * from stud2;
++------+------+-------+
+| roll | name | marks |
++------+------+-------+
+|    5 | SY   |     6 |
+|    1 | TY   |    60 |
+|    2 | TY   |    60 |
+|    3 | TY   |    60 |
+|    4 | TY   |    60 |
++------+------+-------+
+5 rows in set (0.000 sec)
+
+ select stud1.roll,stud1.name, stud1.marks, stud2.name, stud2.marks from stud1 join stud2 where stud1.roll=stud2.roll;
++------+-------+--------+------+-------+
+| roll | name  | marks  | name | marks |
++------+-------+--------+------+-------+
+|    5 | kumar | 607.89 | SY   |     6 |
+|    1 | anil  |  67.89 | TY   |    60 |
+|    2 | anis  |  67.89 | TY   |    60 |
+|    3 | anees | 607.89 | TY   |    60 |
+|    4 | khan  | 607.89 | TY   |    60 |
++------+-------+--------+------+-------+
+
+select a.roll,a.name, a.marks, b.name, b.marks from stud1 as a join stud2 as b where a.roll=b.roll;
++------+-------+--------+------+-------+
+| roll | name  | marks  | name | marks |
++------+-------+--------+------+-------+
+|    5 | kumar | 607.89 | SY   |     6 |
+|    1 | anil  |  67.89 | TY   |    60 |
+|    2 | anis  |  67.89 | TY   |    60 |
+|    3 | anees | 607.89 | TY   |    60 |
+|    4 | khan  | 607.89 | TY   |    60 |
++------+-------+--------+------+-------+
+5 rows in set (0.001 sec)
+
+
+LEFT OUTER JOIN:
+
+select a.roll,a.name, a.marks, b.name, b.marks from stud1 as a left join stud2 as b on a.roll=b.roll;
++------+-------+--------+------+-------+
+| roll | name  | marks  | name | marks |
++------+-------+--------+------+-------+
+|    5 | kumar | 607.89 | SY   |     6 |
+|    1 | anil  |  67.89 | TY   |    60 |
+|    2 | anis  |  67.89 | TY   |    60 |
+|    3 | anees | 607.89 | TY   |    60 |
+|    4 | khan  | 607.89 | TY   |    60 |
++------+-------+--------+------+-------+
+5 rows in set (0.001 sec)
+
+select a.roll,a.name, a.marks, b.name, b.marks from stud1 as a right join stud2 as b on a.roll=b.roll;
++------+-------+--------+------+-------+
+| roll | name  | marks  | name | marks |
++------+-------+--------+------+-------+
+|    1 | anil  |  67.89 | TY   |    60 |
+|    2 | anis  |  67.89 | TY   |    60 |
+|    3 | anees | 607.89 | TY   |    60 |
+|    4 | khan  | 607.89 | TY   |    60 |
+|    5 | kumar | 607.89 | SY   |     6 |
++------+-------+--------+------+-------+
+5 rows in set (0.000 sec)
+
+select b.roll,a.name, a.marks, b.name, b.marks from stud1 as a right join stud2 as b on a.roll=b.roll;
++------+-------+--------+------+-------+
+| roll | name  | marks  | name | marks |
++------+-------+--------+------+-------+
+|    1 | anil  |  67.89 | TY   |    60 |
+|    2 | anis  |  67.89 | TY   |    60 |
+|    3 | anees | 607.89 | TY   |    60 |
+|    4 | khan  | 607.89 | TY   |    60 |
+|    5 | kumar | 607.89 | SY   |     6 |
++------+-------+--------+------+-------+
+5 rows in set (0.001 sec)
+
+
+UNION (duplicate entries are one time)
+
+insert into stud2 values (6, 'anis',67.89);
+Query OK, 1 row affected (0.010 sec)
+
+MariaDB [mydb]> select * from stud2;
++------+------+-------+
+| roll | name | marks |
++------+------+-------+
+|    5 | SY   |     6 |
+|    1 | TY   |    60 |
+|    2 | TY   |    60 |
+|    3 | TY   |    60 |
+|    4 | TY   |    60 |
+|    6 | anis | 67.89 |
++------+------+-------+
+6 rows in set (0.000 sec)
+
+insert into stud1 values (6, 'TY',60);
+Query OK, 1 row affected (0.005 sec)
+
+MariaDB [mydb]> select * from stud1;
++------+-------+--------+
+| roll | name  | marks  |
++------+-------+--------+
+|    1 | anil  |  67.89 |
+|    2 | anis  |  67.89 |
+|    3 | anees | 607.89 |
+|    4 | khan  | 607.89 |
+|    5 | kumar | 607.89 |
+|    6 | TY    |     60 |
++------+-------+--------+
+6 rows in set (0.000 sec)
+
+select * from stud1 union select * from stud2;
++------+-------+--------+
+| roll | name  | marks  |
++------+-------+--------+
+|    1 | anil  |  67.89 |
+|    2 | anis  |  67.89 |
+|    3 | anees | 607.89 |
+|    4 | khan  | 607.89 |
+|    5 | kumar | 607.89 |
+|    6 | TY    |     60 |
+|    5 | SY    |      6 |
+|    1 | TY    |     60 |
+|    2 | TY    |     60 |
+|    3 | TY    |     60 |
+|    4 | TY    |     60 |
+|    6 | anis  |  67.89 |
++------+-------+--------+
+12 rows in set (0.001 sec)
+
+
+Intersect (entries common beteen them)
+
+select * from stud1 intersect select * from stud2;
+
+
+
+VIEW (selected view)
+
+select * from student where marks > 60 and class ='TY'
+    -> ;
++------+---------+-------+-------+
+| roll | name    | marks | class |
++------+---------+-------+-------+
+|    1 | AJAY    | 64.95 | TY    |
+|    4 | gaurav  | 81.95 | TY    |
+|   11 | raman   | 84.95 | TY    |
+|   13 | ranjeet |  64.5 | TY    |
++------+---------+-------+-------+
+4 rows in set (0.000 sec)
+
+select name, marks from student where marks > 60 and class ='TY';
++---------+-------+
+| name    | marks |
++---------+-------+
+| AJAY    | 64.95 |
+| gaurav  | 81.95 |
+| raman   | 84.95 |
+| ranjeet |  64.5 |
++---------+-------+
+4 rows in set (0.000 sec)
+
+create view stud_view as select name, marks from student where marks > 60 and class ='TY';
+Query OK, 0 rows affected (0.010 sec)
+
+MariaDB [mydb]> select * from stud_view;
++---------+-------+
+| name    | marks |
++---------+-------+
+| AJAY    | 64.95 |
+| gaurav  | 81.95 |
+| raman   | 84.95 |
+| ranjeet |  64.5 |
++---------+-------+
+4 rows in set (0.001 sec)
+
+update student set marks=70.12 where name='AJAY';
+Query OK, 1 row affected (0.005 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [mydb]> select * from stud_view;
++---------+-------+
+| name    | marks |
++---------+-------+
+| AJAY    | 70.12 |
+| gaurav  | 81.95 |
+| raman   | 84.95 |
+| ranjeet |  64.5 |
++---------+-------+
+4 rows in set (0.000 sec)
+
+ create view join_view as select a.roll,a.name, a.marks, b.name, b.marks from stud1 as a right join stud2 as b on a.roll=b.roll;
+
+****************
+
+Data control language:
+ select user();
++----------------+
+| user()         |
++----------------+
+| root@localhost |
++----------------+
+1 row in set (0.000 sec
+
+create user admin@localhost identified by 'admin123';
+
+>mysql -u admin -p
+
+
+select user();
++-----------------+
+| user()          |
++-----------------+
+| admin@localhost |
++-----------------+
+
+exit
+
+mysql -u root
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 11
+Server version: 10.4.32-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mydb               |
+| mysql              |
+| performance_schema |
+| phpmyadmin         |
+| test               |
++--------------------+
+6 rows in set (0.001 sec)
+
+MariaDB [(none)]> grant select on mydb.student to admin@localhost;
+Query OK, 0 rows affected (0.006 sec)
+
+exit
+
+>mysql -u admin -p
+Enter password: ********
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 12
+Server version: 10.4.32-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mydb               |
+| test               |
++--------------------+
+3 rows in set (0.001 sec)
+
+ use mydb;
+Database changed
+MariaDB [mydb]> show tables;
++----------------+
+| Tables_in_mydb |
++----------------+
+| student        |
++----------------+
+1 row in set (0.001 sec)
+
+MariaDB [mydb]> select * from student;
++------+----------+--------+-------+
+| roll | name     | marks  | class |
++------+----------+--------+-------+
+|    1 | AJAY     |  70.12 | TY    |
+|    2 | ram      |  81.95 | FY    |
+|    3 | Aditya   | 604.95 | SY    |
+|    4 | gaurav   |  81.95 | TY    |
+|    6 | ramu     |   44.5 | SY    |
+|    7 | kirti    |   72.3 | SY    |
+|    8 | rani     |  82.95 | SY    |
+|    9 | ranjeet  |  22.95 | TY    |
+|   10 | rajneeti |   5.95 | FY    |
+|   11 | raman    |  84.95 | TY    |
+|   12 | raju     |  12.95 | TY    |
+|   13 | ranjeet  |   64.5 | TY    |
++------+----------+--------+-------+
+12 rows in set (0.000 sec)
+
+delete from student;
+ERROR 1142 (42000): DELETE command denied to user 'admin'@'localhost' for table `mydb`.`student`
+
+
+ show grants for admin@localhost;
++--------------------------------------------------------------------------------------------------------------+
+| Grants for admin@localhost                                                                                   |
++--------------------------------------------------------------------------------------------------------------+
+| GRANT USAGE ON *.* TO `admin`@`localhost` IDENTIFIED BY PASSWORD '*01A6717B58FF5C7EAFFF6CB7C96F7428EA65FE4C' |
+| GRANT SELECT ON `mydb`.`student` TO `admin`@`localhost`                                                      |
++--------------------------------------------------------------------------------------------------------------+
+2 rows in set (0.000 sec)
+
+exit
+mysql -u root
+revoke select on mydb.student from admin@localhost;
+
+
+Query OK, 0 rows affected (0.007 sec)
+
+
+
+
+set autocommit=0;
+Query OK, 0 rows affected (0.000 sec)
+
+MariaDB [(none)]> insert into student values(15,'noni',90);
+ERROR 1046 (3D000): No database selected
+MariaDB [(none)]> insert into student values(15,'noni',90);
+ERROR 1046 (3D000): No database selected
+MariaDB [(none)]> use database mydb;
+ERROR 1049 (42000): Unknown database 'database'
+MariaDB [(none)]> use mydb;
+Database changed
+MariaDB [mydb]> insert into student values(15,'noni',90);
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+MariaDB [mydb]> insert into student values(15,'noni',90,TY);
+ERROR 1054 (42S22): Unknown column 'TY' in 'field list'
+MariaDB [mydb]> insert into student values(15,'noni',90,'TY');
+Query OK, 1 row affected (0.000 sec)
+
+MariaDB [mydb]> select * from student;
++------+----------+--------+-------+
+| roll | name     | marks  | class |
++------+----------+--------+-------+
+|    1 | AJAY     |  70.12 | TY    |
+|    2 | ram      |  81.95 | FY    |
+|    3 | Aditya   | 604.95 | SY    |
+|    4 | gaurav   |  81.95 | TY    |
+|    6 | ramu     |   44.5 | SY    |
+|    7 | kirti    |   72.3 | SY    |
+|    8 | rani     |  82.95 | SY    |
+|    9 | ranjeet  |  22.95 | TY    |
+|   10 | rajneeti |   5.95 | FY    |
+|   11 | raman    |  84.95 | TY    |
+|   12 | raju     |  12.95 | TY    |
+|   13 | ranjeet  |   64.5 | TY    |
+|   15 | noni     |     90 | TY    |
++------+----------+--------+-------+
+13 rows in set (0.000 sec)
+
+MariaDB [mydb]> exit
+Bye
+
+C:\xampp\mysql\bin>mysql -u root
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 14
+Server version: 10.4.32-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> use mydb;
+Database changed
+MariaDB [mydb]> select * from student;
++------+----------+--------+-------+
+| roll | name     | marks  | class |
++------+----------+--------+-------+
+|    1 | AJAY     |  70.12 | TY    |
+|    2 | ram      |  81.95 | FY    |
+|    3 | Aditya   | 604.95 | SY    |
+|    4 | gaurav   |  81.95 | TY    |
+|    6 | ramu     |   44.5 | SY    |
+|    7 | kirti    |   72.3 | SY    |
+|    8 | rani     |  82.95 | SY    |
+|    9 | ranjeet  |  22.95 | TY    |
+|   10 | rajneeti |   5.95 | FY    |
+|   11 | raman    |  84.95 | TY    |
+|   12 | raju     |  12.95 | TY    |
+|   13 | ranjeet  |   64.5 | TY    |
++------+----------+--------+-------+
+12 rows in set (0.000 sec)
+
+
+TCL:
+set autocommit=0;
+Query OK, 0 rows affected (0.000 sec)
+
+MariaDB [mydb]> insert into student values (15,'anil',67, 'TY');
+Query OK, 1 row affected (0.000 sec)
+
+MariaDB [mydb]> select * from student;
++------+----------+--------+-------+
+| roll | name     | marks  | class |
++------+----------+--------+-------+
+|    1 | AJAY     |  70.12 | TY    |
+|    2 | ram      |  81.95 | FY    |
+|    3 | Aditya   | 604.95 | SY    |
+|    4 | gaurav   |  81.95 | TY    |
+|    6 | ramu     |   44.5 | SY    |
+|    7 | kirti    |   72.3 | SY    |
+|    8 | rani     |  82.95 | SY    |
+|    9 | ranjeet  |  22.95 | TY    |
+|   10 | rajneeti |   5.95 | FY    |
+|   11 | raman    |  84.95 | TY    |
+|   12 | raju     |  12.95 | TY    |
+|   13 | ranjeet  |   64.5 | TY    |
+|   15 | anil     |     67 | TY    |
++------+----------+--------+-------+
+13 rows in set (0.000 sec)
+
+MariaDB [mydb]> savepoint one;
+Query OK, 0 rows affected (0.000 sec)
+
+MariaDB [mydb]> update student set marks =55.55 where roll=6;
+Query OK, 1 row affected (0.000 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [mydb]> savepoint two;
+Query OK, 0 rows affected (0.000 sec)
+
+MariaDB [mydb]> delete from student where roll=9;
+Query OK, 1 row affected (0.000 sec)
+
+MariaDB [mydb]> savepoint three;
+Query OK, 0 rows affected (0.000 sec)
+
+MariaDB [mydb]> select * from student;
++------+----------+--------+-------+
+| roll | name     | marks  | class |
++------+----------+--------+-------+
+|    1 | AJAY     |  70.12 | TY    |
+|    2 | ram      |  81.95 | FY    |
+|    3 | Aditya   | 604.95 | SY    |
+|    4 | gaurav   |  81.95 | TY    |
+|    6 | ramu     |  55.55 | SY    |
+|    7 | kirti    |   72.3 | SY    |
+|    8 | rani     |  82.95 | SY    |
+|   10 | rajneeti |   5.95 | FY    |
+|   11 | raman    |  84.95 | TY    |
+|   12 | raju     |  12.95 | TY    |
+|   13 | ranjeet  |   64.5 | TY    |
+|   15 | anil     |     67 | TY    |
++------+----------+--------+-------+
+
+ rollback to one;
+Query OK, 0 rows affected (0.000 sec)
+
+MariaDB [mydb]> select * from student;
++------+----------+--------+-------+
+| roll | name     | marks  | class |
++------+----------+--------+-------+
+|    1 | AJAY     |  70.12 | TY    |
+|    2 | ram      |  81.95 | FY    |
+|    3 | Aditya   | 604.95 | SY    |
+|    4 | gaurav   |  81.95 | TY    |
+|    6 | ramu     |   44.5 | SY    |
+|    7 | kirti    |   72.3 | SY    |
+|    8 | rani     |  82.95 | SY    |
+|    9 | ranjeet  |  22.95 | TY    |
+|   10 | rajneeti |   5.95 | FY    |
+|   11 | raman    |  84.95 | TY    |
+|   12 | raju     |  12.95 | TY    |
+|   13 | ranjeet  |   64.5 | TY    |
+|   15 | anil     |     67 | TY    |
++------+----------+--------+-------+
+13 rows in set (0.000 sec)
+
+commit;
